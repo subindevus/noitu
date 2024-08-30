@@ -33,13 +33,13 @@ async function getLinkedWord() {
         }
 
         if (tries === 0) {
-            resultDiv.innerHTML += `<p>Game Over! You lost all your tries.</p>`;
+            resultDiv.innerHTML += `<p>Thua Cuộc - Bạn Đã Dùng Hết 3 Lượt Thử Lại !</p>`;
             resetGame();
         }
 
     } catch (error) {
         console.error('Error fetching data:', error);
-        document.getElementById('result').innerHTML = `<p>Error fetching data. Please try again later.</p>`;
+        document.getElementById('result').innerHTML = `<p>Lỗi</p>`;
     }
 }
 
@@ -49,21 +49,21 @@ function handleIncorrectInput(resultDiv) {
     updateTries();
 
     if (tries === 0) {
-        resultDiv.innerHTML += `<p>Game Over! You lost all your tries.</p>`;
+        resultDiv.innerHTML += `<p>Game Over!</p>`;
         resetGame();
     }
 }
 
 function updateScore() {
-    document.getElementById('score').innerText = `Score: ${score}`;
+    document.getElementById('score').innerText = `Điểm: ${score}`;
 }
 
 function updateTries() {
-    document.getElementById('tries').innerText = `Tries left: ${tries}`;
+    document.getElementById('tries').innerText = `Chuỗi Thắng: ${tries}`;
 }
 
 function giveUp() {
-    document.getElementById('result').innerHTML = `<p>You gave up! Final score: ${score}</p>`;
+    document.getElementById('result').innerHTML = `<p>Đầu Hàng - Bạn Được : ${score} Điểm</p>`;
     resetGame();
 }
 
