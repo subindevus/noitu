@@ -57,7 +57,7 @@ function updateScore() {
 }
 
 function updateTries() {
-    document.getElementById('tries').innerText = `Chuỗi Thắng: ${tries}`;
+    document.getElementById('tries').innerText = `Mạng: ${tries}`;
 }
 
 function giveUp() {
