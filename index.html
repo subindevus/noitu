@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nối Từ Beta</title>
+    <title>Game Nối Từ</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Game Nối Từ</h1>
+        <!-- Nút bắt đầu game -->
+        <button onclick="startGame()">Bắt Đầu Game</button>
+        
+        <!-- Thông tin người chơi và điểm số -->
+        <p id="playerName">Người chơi: </p>
         <p id="score">Điểm: 0</p>
         <p id="tries">Mạng: 3</p>
-        <input type="text" id="wordInput" placeholder="Enter a word...">
-        <button onclick="getLinkedWord()">Trả Lời</button>
-        <button onclick="giveUp()">Đầu Hàng</button>
+        
+        <!-- Nhập từ và các nút điều khiển -->
+        <input type="text" id="wordInput" placeholder="Nhập từ..." disabled>
+        <button onclick="getLinkedWord()" disabled>Trả Lời</button>
+        <button onclick="giveUp()" disabled>Đầu Hàng</button>
+        
+        <!-- Kết quả hiển thị -->
         <div id="result"></div>
+        
+        <!-- Bảng xếp hạng -->
+        <div id="leaderboard"></div>
     </div>
 
+    <!-- Script -->
     <script src="script.js"></script>
 </body>
 </html>
