@@ -3,53 +3,53 @@ let tries = 3;
 let lastTail = '';
 
 async function getLinkedWord() {
-    const word = document.getElementById('wordInput').value.trim().toLowerCase();  // Chuyển thành chữ thường để so sánh dễ dàng hơn
+    const word = document.getElementById('wordInput').value.trim().toLowerCase();
     const url = `https://apichatbot.sumiproject.io.vn/game/linkword?word=${word}`;
     
     try {
         const response = await fetch(url);
         const data = await response.json();
+
+        console.log(data); // Kiểm tra dữ liệu trả về từ API
+
         const resultDiv = document.getElementById('result');
 
         if (data.data) {
             const text = data.data.text;
-            const head = data.data.head.toLowerCase();
             const tail = data.data.tail.toLowerCase();
 
             if (lastTail === '' || word.startsWith(lastTail)) {
-                // Đầu vào đúng
+                // Nếu đúng từ nối
                 score += 10;
                 resultDiv.innerHTML = `<p>Bot: <strong>${text}</strong></p>`;
                 lastTail = tail;
                 updateScore();
             } else {
+                // Nếu sai từ nối
                 handleIncorrectInput(resultDiv);
             }
         } else {
-            // Xử lý khi API trả về false
+            // API trả về dữ liệu không hợp lệ
             handleIncorrectInput(resultDiv);
         }
 
-        if (tries === 0) {
-            resultDiv.innerHTML += `<p>Thua Cuộc - Bạn Đã Dùng Hết 3 Lượt Thử Lại!</p>`;
-            resetGame();
-        }
-
     } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu:', error);
+        console.error('Error fetching data:', error);
         document.getElementById('result').innerHTML = `<p>Lỗi</p>`;
     }
 }
 
 function handleIncorrectInput(resultDiv) {
     tries -= 1;
-    resultDiv.innerHTML = `<p>Sai rồi! Từ phải bắt đầu bằng: <strong>${lastTail}</strong>. Bạn còn ${tries} lượt thử lại.</p>`;
-    updateTries();
-
+    
     if (tries === 0) {
-        resultDiv.innerHTML += `<p>Game Over!</p>`;
-        resetGame();
+        resultDiv.innerHTML = `<p>Game Over!</p><p>Bắt đầu lại ván chơi mới...</p>`;
+        setTimeout(resetGame, 2000);  // Đợi 2 giây rồi khởi động lại game
+    } else {
+        resultDiv.innerHTML = `<p>Sai rồi! Từ phải bắt đầu bằng: <strong>${lastTail}</strong>. Bạn còn ${tries} lượt thử lại.</p>`;
     }
+    
+    updateTries();
 }
 
 function updateScore() {
@@ -57,7 +57,7 @@ function updateScore() {
 }
 
 function updateTries() {
-    document.getElementById('tries').innerText = `Mạng: ${tries}`;
+    document.getElementById('tries').innerText = `Chuỗi Thắng: ${tries}`;
 }
 
 function giveUp() {
@@ -72,4 +72,5 @@ function resetGame() {
     updateScore();
     updateTries();
     document.getElementById('wordInput').value = '';
+    document.getElementById('result').innerHTML = '';  // Xóa kết quả để bắt đầu ván mới
 }
