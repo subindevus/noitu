@@ -8,28 +8,29 @@
 </head>
 <body>
     <div class="container">
-        <h1>Game Nối Từ</h1>
         <!-- Nút bắt đầu game -->
-        <button onclick="startGame()">Bắt Đầu Game</button>
+        <button id="startButton">Bắt Đầu Game</button>
         
-        <!-- Thông tin người chơi và điểm số -->
-        <p id="playerName">Người chơi: </p>
-        <p id="score">Điểm: 0</p>
-        <p id="tries">Mạng: 3</p>
-        
-        <!-- Nhập từ và các nút điều khiển -->
-        <input type="text" id="wordInput" placeholder="Nhập từ..." disabled>
-        <button onclick="getLinkedWord()" disabled>Trả Lời</button>
-        <button onclick="giveUp()" disabled>Đầu Hàng</button>
-        
-        <!-- Kết quả hiển thị -->
-        <div id="result"></div>
-        
-        <!-- Bảng xếp hạng -->
-        <div id="leaderboard"></div>
+        <!-- Phần thông tin và trò chơi (ẩn lúc đầu) -->
+        <div id="gameSection" class="hidden">
+            <!-- Thông tin người chơi và điểm số -->
+            <p id="playerName">Người chơi: </p>
+            <p id="score">Điểm: 0</p>
+            <p id="tries">Mạng: 3</p>
+
+            <!-- Nhập từ và các nút điều khiển -->
+            <input type="text" id="wordInput" placeholder="Nhập từ...">
+            <button id="answerButton">Trả Lời</button>
+            <button id="giveUpButton">Đầu Hàng</button>
+
+            <!-- Kết quả hiển thị -->
+            <div id="result"></div>
+
+            <!-- Bảng xếp hạng -->
+            <div id="leaderboard"></div>
+        </div>
     </div>
 
-    <!-- Script -->
     <script src="script.js"></script>
 </body>
 </html>
