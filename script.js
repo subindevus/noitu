@@ -13,13 +13,14 @@ async function getLinkedWord() {
         const resultDiv = document.getElementById('result');
 
         if (data.data) {
+            const text = data.data.text
             const head = data.data.head;
             const tail = data.data.tail;
 
             if (lastTail === '' || word.startsWith(lastTail)) {
                 // Correct input
                 score += 10;
-                resultDiv.innerHTML = `<p>Correct! Next word should start with: <strong>${tail}</strong></p>`;
+                resultDiv.innerHTML = `<p>Bot: <strong>${text}</strong></p>`;
                 lastTail = tail;
                 updateScore();
             } else {
