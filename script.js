@@ -3,22 +3,21 @@ let tries = 3;
 let lastTail = '';
 
 async function getLinkedWord() {
-    const word = document.getElementById('wordInput').value.trim();
+    const word = document.getElementById('wordInput').value.trim().toLowerCase();  // Chuyển thành chữ thường để so sánh dễ dàng hơn
     const url = `https://apichatbot.sumiproject.io.vn/game/linkword?word=${word}`;
     
     try {
         const response = await fetch(url);
         const data = await response.json();
-
         const resultDiv = document.getElementById('result');
 
         if (data.data) {
-            const text = data.data.text
-            const head = data.data.head;
-            const tail = data.data.tail;
+            const text = data.data.text;
+            const head = data.data.head.toLowerCase();
+            const tail = data.data.tail.toLowerCase();
 
             if (lastTail === '' || word.startsWith(lastTail)) {
-                // Correct input
+                // Đầu vào đúng
                 score += 10;
                 resultDiv.innerHTML = `<p>Bot: <strong>${text}</strong></p>`;
                 lastTail = tail;
@@ -26,26 +25,25 @@ async function getLinkedWord() {
             } else {
                 handleIncorrectInput(resultDiv);
             }
-
         } else {
-            // Incorrect word chain (API returned false)
+            // Xử lý khi API trả về false
             handleIncorrectInput(resultDiv);
         }
 
         if (tries === 0) {
-            resultDiv.innerHTML += `<p>Thua Cuộc - Bạn Đã Dùng Hết 3 Lượt Thử Lại !</p>`;
+            resultDiv.innerHTML += `<p>Thua Cuộc - Bạn Đã Dùng Hết 3 Lượt Thử Lại!</p>`;
             resetGame();
         }
 
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Lỗi khi lấy dữ liệu:', error);
         document.getElementById('result').innerHTML = `<p>Lỗi</p>`;
     }
 }
 
 function handleIncorrectInput(resultDiv) {
     tries -= 1;
-    resultDiv.innerHTML = `<p>Incorrect! The word should start with: <strong>${lastTail}</strong>. You have ${tries} tries left.</p>`;
+    resultDiv.innerHTML = `<p>Sai rồi! Từ phải bắt đầu bằng: <strong>${lastTail}</strong>. Bạn còn ${tries} lượt thử lại.</p>`;
     updateTries();
 
     if (tries === 0) {
@@ -63,7 +61,7 @@ function updateTries() {
 }
 
 function giveUp() {
-    document.getElementById('result').innerHTML = `<p>Đầu Hàng - Bạn Được : ${score} Điểm</p>`;
+    document.getElementById('result').innerHTML = `<p>Đầu Hàng - Bạn Được: ${score} Điểm</p>`;
     resetGame();
 }
 
